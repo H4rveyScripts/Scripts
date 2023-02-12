@@ -1,0 +1,140 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+local venyx = library.new("Sharkbite Gui", 5013109572)
+
+
+-- themes
+local themes = {
+    Background = Color3.fromRGB(24, 24, 24),
+    Glow = Color3.fromRGB(0, 0, 0),
+    Accent = Color3.fromRGB(10, 10, 10),
+    LightContrast = Color3.fromRGB(20, 20, 20),
+    DarkContrast = Color3.fromRGB(14, 14, 14),  
+    TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+-- Main
+local Main = venyx:addPage("Main", 5012544693)
+local AutoFarmSection = Main:addSection("AutoFarm")
+local GunModsSection = Main:addSection("GunMods")
+
+GunModsSection:addButton("Rifle Mods", function()
+local old=syn.get_thread_identity()
+    syn.set_thread_identity(3)
+local rifle=require(game:GetService("ReplicatedStorage").Projectiles.ProjectileStatsModule).get().Rifle
+    syn.set_thread_identity(old)
+    old=nil
+    rifle.FireRate=9e9
+    rifle.MagSize=9e9
+    rifle.Damage=9e9
+    rifle.Range=9e9
+    rifle.Mode=2
+    rifle.ReloadTime=0
+    rifle.Recoil=Vector3.new(0,0,0)
+end)
+
+GunModsSection:addButton("Rocket Luancher Mods", function()
+    local old=syn.get_thread_identity()
+    syn.set_thread_identity(3)
+local RocketLuancher=require(game:GetService("ReplicatedStorage").Projectiles.ProjectileStatsModule).get().Rifle
+    syn.set_thread_identity(old)
+    old=nil
+    RocketLuancher.FireRate=9e9
+    RocketLuancher.MagSize=9e9
+    RocketLuancher.Damage=9e9
+    RocketLuancher.Range=9e9
+    RocketLuancher.Mode=2
+    RocketLuancher.ReloadTime=0
+    RocketLuancher.Recoil=Vector3.new(0,0,0)
+end)
+
+GunModsSection:addButton("PaintballGun Mods", function()
+    local old=syn.get_thread_identity()
+    syn.set_thread_identity(3)
+local PaintballGun=require(game:GetService("ReplicatedStorage").Projectiles.ProjectileStatsModule).get().Rifle
+    syn.set_thread_identity(old)
+    old=nil
+    PaintballGun.FireRate=9e9
+    PaintballGun.MagSize=9e9
+    PaintballGun.Damage=9e9
+    PaintballGun.Range=9e9
+    PaintballGun.Mode=2
+    PaintballGun.ReloadTime=0
+    PaintballGun.Recoil=Vector3.new(0,0,0)
+end)
+
+GunModsSection:addButton("Thompson Mods", function()
+    local old=syn.get_thread_identity()
+    syn.set_thread_identity(3)
+local Thompson=require(game:GetService("ReplicatedStorage").Projectiles.ProjectileStatsModule).get().Rifle
+    syn.set_thread_identity(old)
+    old=nil
+    Thompson.FireRate=9e9
+    Thompson.MagSize=9e9
+    Thompson.Damage=9e9
+    Thompson.Range=9e9
+    Thompson.Mode=2
+    Thompson.ReloadTime=0
+    Thompson.Recoil=Vector3.new(0,0,0)
+end)
+
+-- Visuals
+local Visuals = venyx:addPage("Visuals", 5012544693)
+local VisualsSection = Visuals:addSection("Visuals")
+
+VisualsSection:addbutton("Shark ESP", function ()
+    local function cham(shark)
+        repeat wait() until shark:FindFirstChild("Body")
+        
+        local body = Instance.new("BoxHandleAdornment")
+        body.Size = shark.Body.Size
+        body.Name = shark.Name.."-Body"
+        body.Adornee = shark.Body
+        body.AlwaysOnTop = true
+        body.Transparency = 0.7
+        body.ZIndex = 2
+        body.Parent = Folder
+        body.Visible = true
+        
+        local fin = Instance.new("BoxHandleAdornment")
+        fin.Size = shark.Fin.Size
+        fin.Name = shark.Name.."-Fin"
+        fin.Adornee = shark.Fin
+        fin.AlwaysOnTop = true
+        fin.Transparency = 0.7
+        fin.ZIndex = 2
+        fin.Parent = Folder
+        fin.Visible = true
+    
+        shark.AncestryChanged:Connect(function()
+            body:Destroy()
+            fin:Destroy()
+        end)
+    end
+end)    
+
+VisualsSection:addbutton("Normal ESP", function ()
+    local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+
+local function onCharacterAdded(character)
+	local humanoid = character:WaitForChild("Humanoid")
+	humanoid.Died:Connect(function()
+		local esp = Instance.new("Part")
+		esp.Name = "ESP"
+		esp.Size = Vector3.new(1,1,1)
+		esp.CanCollide = false
+		esp.Anchored = true
+		esp.Parent = character
+		
+		local espBox = Instance.new("SelectionBox")
+		espBox.Adornee = esp
+		espBox.Color = Color3.fromRGB(255, 0, 0)
+		espBox.Parent = esp
+		
+		wait(5)
+		esp:Destroy()
+	end)
+end
+
+localPlayer.CharacterAdded:Connect(onCharacterAdded)
+end)
